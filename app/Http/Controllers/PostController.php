@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
-    return view('posts/index')->with(['posts' => $post->getPaginateByLimit(1)]);
+        return view('posts/index')->with(['posts' => $post->getPaginateByLimit(1)]);
     }
     
     public function show(Post $post)
@@ -20,5 +20,12 @@ class PostController extends Controller
     public function create()
     {
         return view('posts/create');
+    }
+    
+    public function store(Request $request, Post $post)
+    {
+        $input = $repuest['post'];
+        $post->fill($input)->save();
+        return redirect('/posts' . $post->id);
     }
 }
